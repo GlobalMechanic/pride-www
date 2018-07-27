@@ -24,7 +24,7 @@
     "node": "10.7.x"
   },
   "dependencies": {
-    "@benzed/app": "^0.5.4",
+    "@benzed/app": "^0.5.5",
     "@benzed/react": "^0.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
