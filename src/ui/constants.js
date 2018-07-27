@@ -3,7 +3,7 @@
 // Exports
 /******************************************************************************/
 
-export const TEST_MOBILE = true
+export const TEST_MOBILE = process.env.NODE_ENV === 'development' && false
 
 export const CYCLE_SPEED = 333 // ms
 

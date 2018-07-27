@@ -1,0 +1,15 @@
+{
+
+  "rest": {
+    "public": "./dist/public",
+    "favicon": null
+  },
+
+  "socketio": false,
+  "auth": false,
+
+  "port": "PORT",
+
+  "logging": true
+
+}

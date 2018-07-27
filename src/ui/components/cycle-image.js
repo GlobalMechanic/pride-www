@@ -73,7 +73,6 @@ class CycleImage extends React.Component {
     const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
 
     this.setState({ src })
-
   }
 
   // Handlers

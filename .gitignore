@@ -4,5 +4,4 @@ node_modules
 *.temp*
 *-old*
 dist/webpack
-dist
 src/webpack/dev-people.json
