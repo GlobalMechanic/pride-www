@@ -1,9 +1,10 @@
-import Section from './section'
 
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export {
-  Section
-}
+export const TEST_MOBILE = true
+
+export const CYCLE_SPEED = 333 // ms
+
+export const CYCLE_IMAGE_COUNT = 3

@@ -2,30 +2,42 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Markdown from 'react-markdown'
+
 import Video from './video'
+import CycleImage from './cycle-image'
+
+import { isMobile } from '@benzed/react'
+import { TEST_MOBILE } from '../constants'
+
+/******************************************************************************/
+// Data
+/******************************************************************************/
+
+const MOBILE = TEST_MOBILE || isMobile()
 
 /******************************************************************************/
 // Styled Markdown
 /******************************************************************************/
 
-const PAD = '5em'
+const PAD = 40
 
-const BLACK = 'rgba(0, 0, 0, 0.75)'
+const BLACK = 'rgba(0, 0, 0, 0.675)'
 
 const Bio = styled(Markdown)`
 flex-shrink: 0;
+box-sizing: border-box;
 display: flex;
 overflow: hidden;
-margin-top: calc(80vh - ${PAD});
-margin-bottom: calc(80vh - ${PAD});
+margin-top: calc(80vh - ${PAD}em);
+margin-bottom: calc(80vh - ${PAD}em);
 font-size: 1.5em;
-padding: ${PAD};
+padding: ${PAD}em 10vw ${PAD}em 10vw;
 
 background: linear-gradient(
   to bottom,
   transparent,
-  ${BLACK} ${PAD},
-  ${BLACK} calc(100% - ${PAD}),
+  ${BLACK} ${PAD}em,
+  ${BLACK} calc(100% - ${PAD}em),
   transparent
 )
 `
@@ -36,9 +48,9 @@ background: linear-gradient(
 
 const Section = styled(({ video, bio, className }) =>
   <section className={className}>
-    { video
-      ? <Video video={video} />
-      : null
+    { MOBILE
+      ? <CycleImage cycle={video} />
+      : <Video video={video} />
     }
     { bio
       ? <Bio source={bio} />
