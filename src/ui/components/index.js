@@ -1,7 +1,11 @@
-// index file for sub components
+import Section from './section'
+import Video from './video'
 
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export { }
+export {
+  Section,
+  Video
+}

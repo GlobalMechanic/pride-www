@@ -1,14 +1,20 @@
-import PrideWwwServer from '../api'
 import path from 'path'
 
 /******************************************************************************/
-// Setup
+// Setup Dev
 /******************************************************************************/
 
-const CONFIG_URL = path.resolve(process.cwd(), 'config')
+if (process.env.NODE_ENV === 'development') {
+  const { addAlias } = require('module-alias')
+  const BENZED = path.resolve('../benzed-mono/packages')
+
+  addAlias('@benzed', BENZED)
+}
 
 /******************************************************************************/
 // Execute
 /******************************************************************************/
 
-PrideWwwServer.run(CONFIG_URL)
+require('../api')
+  .default
+  .run(path.resolve('config'))

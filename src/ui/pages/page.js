@@ -4,10 +4,7 @@ import styled from 'styled-components'
 // Main Components
 /******************************************************************************/
 
-const Page = styled.div`
-  display: flex;
-  flex: 1 1 auto;
-`
+const Page = styled.div``
 
 /******************************************************************************/
 // Exports

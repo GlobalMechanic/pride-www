@@ -1,11 +1,16 @@
-import { themes } from '@benzed/react'
+import { themes, Color } from '@benzed/react'
 
 /******************************************************************************/
 // Compose
 /******************************************************************************/
 
 const theme = {
-  ...themes.basic
+  ...themes.basic,
+
+  bg: new Color(),
+
+  title: 'AbsentGrotesk',
+  body: 'AbsentGrotesk'
 }
 
 /******************************************************************************/

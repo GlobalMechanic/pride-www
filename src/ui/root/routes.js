@@ -7,9 +7,9 @@ import { Home, Missing } from '../pages'
 // Main
 /******************************************************************************/
 
-const Routes = () =>
+const Routes = ({ people }) =>
   <Switch>
-    <Route path='/' exact component={Home} />
+    <Route path='/' exact render={ route => <Home people={people} {...route}/>} />
     {/* more routes here */}
     <Route component={Missing} />
   </Switch>

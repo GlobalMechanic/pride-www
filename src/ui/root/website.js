@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { GlobalStyle } from '@benzed/react'
 
-import Navigation from './navigation'
+// import Navigation from './navigation'
 import Routes from './routes'
 
 import theme from '../theme'
@@ -21,11 +21,11 @@ const WebsiteMain = styled.div`
 // Main
 /******************************************************************************/
 
-const Website = ({ children }) =>
+const Website = ({ children, people }) =>
   <GlobalStyle theme={theme}>
     <WebsiteMain>
-      <Navigation />
-      <Routes />
+      {/* <Navigation /> */}
+      <Routes people={people}/>
       {children}
     </WebsiteMain>
   </GlobalStyle>

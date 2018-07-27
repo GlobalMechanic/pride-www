@@ -5,9 +5,7 @@ const port = require('./config/default.json').port - 100
 /******************************************************************************/
 // Production
 /******************************************************************************/
-// const webpackConfig = new WebpackConfig({
-//   port
-// })
+// const webpackConfig = new WebpackConfig({ port })
 
 /******************************************************************************/
 // DEV

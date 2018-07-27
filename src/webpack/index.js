@@ -16,26 +16,30 @@ const dependencies = Promise.all([
 // Helper
 /******************************************************************************/
 
-function getServerProps () {
+function getPeopleFromServer () {
 
-  let props
+  if (process.env.NODE_ENV === 'development')
+    return require('../people').default()
+
+  let people
   try {
 
     const serverPropsTag = document.getElementById('pride-www-server-props')
 
-    props = JSON.parse(serverPropsTag.textContent)
+    people = JSON.parse(serverPropsTag.textContent).people
 
     serverPropsTag.textContent = ''
 
   } catch (err) {
+    console.log(err)
     // it could be that the server sent bad data, but generally any failure
     // will simply mean no data has been sent
   }
 
   // make double sure we're sending back an object
-  return props !== null && typeof props === 'object'
-    ? props
-    : {}
+  return Array.isArray(people)
+    ? people
+    : []
 
 }
 
@@ -55,11 +59,11 @@ window.addEventListener('load', async () => {
     { default: Website }
   ] = await dependencies
 
-  const props = getServerProps()
+  const people = getPeopleFromServer()
   const main = getMainTag()
 
   const element = <BrowserRouter>
-    <Website {...props} />
+    <Website people={people} />
   </BrowserRouter>
 
   hydrate(element, main)
