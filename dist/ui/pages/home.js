@@ -41,7 +41,7 @@ const Home = (_ref) => {
     people.map(person => _react2.default.createElement(_components.Section, {
       key: person.name,
       bio: person.bio,
-      video: 'intro' || toDashCase(person.name)
+      video: toDashCase(person.name)
     }))
   );
 };

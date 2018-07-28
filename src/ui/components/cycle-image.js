@@ -16,18 +16,14 @@ import { CYCLE_SPEED, CYCLE_IMAGE_COUNT } from '../constants'
 
 const Image = styled(({ src, className }) => {
 
-  // const style = src && {
-  //   backgroundImage: `url(${src})`
-  // }
+  const style = src && {
+    backgroundImage: `url(${src})`
+  }
 
-  const style = null
-
-  return <div className={className} style={style}>
-    {src}
-  </div>
+  return <div className={className} style={style} />
 })`
 
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 
@@ -71,10 +67,18 @@ class CycleImage extends React.Component {
       ? 'profile'
       : 'landscape'
 
-    // const src = await import(`../../webpack/public/assets/${cycle}_${this.index}.jpg`)
-    const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
+    try {
 
-    this.setState({ src })
+      const { default: src } = await import(
+        `../../webpack/public/assets/${cycle}-${orient}_${this.index}.jpg`
+      )
+      // const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
+
+      this.setState({ src })
+    } catch (err) {
+      // console.warn(err)
+    }
+
   }
 
   // Handlers
@@ -110,7 +114,7 @@ class CycleImage extends React.Component {
     const { nonSticky } = this.props
 
     return <Sticky nonSticky={nonSticky}>
-      <Image src={src} />
+      { src && <Image src={src} />}
     </Sticky>
   }
 

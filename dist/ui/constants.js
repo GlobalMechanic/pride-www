@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", {
 // Exports
 /******************************************************************************/
 
-const TEST_MOBILE = exports.TEST_MOBILE = process.env.NODE_ENV === 'development' && false;
+const TEST_MOBILE = exports.TEST_MOBILE = process.env.NODE_ENV === 'development' && true;
 
 const CYCLE_SPEED = exports.CYCLE_SPEED = 333; // ms
 

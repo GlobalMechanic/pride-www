@@ -21,7 +21,7 @@ const Home = ({ children, people, ...props }) =>
     {people.map(person => <Section
       key={person.name}
       bio={person.bio}
-      video={'intro' || toDashCase(person.name)}
+      video={toDashCase(person.name)}
     />)}
   </Page>
 

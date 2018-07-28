@@ -34,20 +34,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const Image = (0, _styledComponents2.default)(({ src, className }) => {
 
-  // const style = src && {
-  //   backgroundImage: `url(${src})`
-  // }
+  const style = src && {
+    backgroundImage: `url(${src})`
+  };
 
-  const style = null;
-
-  return _react2.default.createElement(
-    'div',
-    { className: className, style: style },
-    src
-  );
+  return _react2.default.createElement('div', { className: className, style: style });
 }).withConfig({
   displayName: 'cycle-image__Image'
-})(['background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%;display:flex;font-size:3em;justify-content:center;align-items:center;']);
+})(['background-size:contain;background-position:center;background-repeat:no-repeat;width:100%;height:100%;display:flex;font-size:3em;justify-content:center;align-items:center;']);
 
 /******************************************************************************/
 // Main Component
@@ -68,10 +62,15 @@ class CycleImage extends _react2.default.Component {
 
       const orient = _this.state.profile ? 'profile' : 'landscape';
 
-      // const src = await import(`../../webpack/public/assets/${cycle}_${this.index}.jpg`)
-      const src = `../../webpack/public/assets/${cycle}_${orient}_${_this.index}.jpg`;
+      try {
 
-      _this.setState({ src });
+        const { default: src } = yield import(`../../webpack/public/assets/${cycle}-${orient}_${_this.index}.jpg`);
+        // const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
+
+        _this.setState({ src });
+      } catch (err) {
+        // console.warn(err)
+      }
     }), this.resize = () => {
       const profile = innerHeight > innerWidth;
 
@@ -107,7 +106,7 @@ class CycleImage extends _react2.default.Component {
     return _react2.default.createElement(
       _sticky2.default,
       { nonSticky: nonSticky },
-      _react2.default.createElement(Image, { src: src })
+      src && _react2.default.createElement(Image, { src: src })
     );
   }
 
