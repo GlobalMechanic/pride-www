@@ -17,7 +17,7 @@ const toDashCase = str =>
 
 const Home = ({ children, people, ...props }) =>
   <Page>
-    <Section video='intro' />
+    <Section video='intro' nonSticky={people.length === 0}/>
     {people.map(person => <Section
       key={person.name}
       bio={person.bio}

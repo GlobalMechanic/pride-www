@@ -83,10 +83,11 @@ class Video extends React.Component {
   render () {
 
     const { src, profile } = this.state
+    const { nonSticky } = this.props
 
     return src === null
       ? null
-      : <Sticky>
+      : <Sticky nonSticky={nonSticky}>
         <VideoPlayer src={src} isProfile={profile}/>
       </Sticky>
   }

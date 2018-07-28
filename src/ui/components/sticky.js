@@ -5,7 +5,7 @@ import styled from 'styled-components'
 /******************************************************************************/
 
 const Sticky = styled.div`
-   position: sticky;
+   position: ${props => props.nonSticky ? 'static' : 'sticky'};
    top: 0;
    width: 100vw;
    height: 100vh;

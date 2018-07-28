@@ -52,10 +52,10 @@ const Bio = (0, _styledComponents2.default)(_reactMarkdown2.default).withConfig(
 // Main Component
 /******************************************************************************/
 
-const Section = (0, _styledComponents2.default)(({ video, bio, className }) => _react2.default.createElement(
+const Section = (0, _styledComponents2.default)(({ video, bio, nonSticky, className }) => _react2.default.createElement(
   'section',
   { className: className },
-  MOBILE ? _react2.default.createElement(_cycleImage2.default, { cycle: video }) : _react2.default.createElement(_video2.default, { video: video }),
+  MOBILE ? _react2.default.createElement(_cycleImage2.default, { cycle: video, nonSticky: nonSticky }) : _react2.default.createElement(_video2.default, { video: video, nonSticky: nonSticky }),
   bio ? _react2.default.createElement(Bio, { source: bio }) : null
 )).withConfig({
   displayName: 'section__Section'

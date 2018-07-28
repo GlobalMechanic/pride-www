@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const Sticky = _styledComponents2.default.div.withConfig({
    displayName: 'sticky__Sticky'
-})(['position:sticky;top:0;width:100vw;height:100vh;overflow:hidden;z-index:-1;']);
+})(['position:', ';top:0;width:100vw;height:100vh;overflow:hidden;z-index:-1;'], props => props.nonSticky ? 'static' : 'sticky');
 /******************************************************************************/
 // Exports
 /******************************************************************************/

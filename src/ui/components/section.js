@@ -46,11 +46,11 @@ background: linear-gradient(
 // Main Component
 /******************************************************************************/
 
-const Section = styled(({ video, bio, className }) =>
+const Section = styled(({ video, bio, nonSticky, className }) =>
   <section className={className}>
     { MOBILE
-      ? <CycleImage cycle={video} />
-      : <Video video={video} />
+      ? <CycleImage cycle={video} nonSticky={nonSticky} />
+      : <Video video={video} nonSticky={nonSticky} />
     }
     { bio
       ? <Bio source={bio} />

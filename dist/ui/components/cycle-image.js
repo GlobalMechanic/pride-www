@@ -73,7 +73,6 @@ class CycleImage extends _react2.default.Component {
 
       _this.setState({ src });
     }), this.resize = () => {
-
       const profile = innerHeight > innerWidth;
 
       if (profile !== this.state.profile) this.setState({ profile });
@@ -91,7 +90,6 @@ class CycleImage extends _react2.default.Component {
     if ((0, _react3.isMobile)()) (0, _addEventListener.addEventListener)(window, 'deviceorientation', this.resize);
 
     this.interval = setInterval(this.loop, _constants.CYCLE_SPEED);
-
     this.resize();
   }
 
@@ -104,10 +102,11 @@ class CycleImage extends _react2.default.Component {
   render() {
 
     const { src } = this.state;
+    const { nonSticky } = this.props;
 
     return _react2.default.createElement(
       _sticky2.default,
-      null,
+      { nonSticky: nonSticky },
       _react2.default.createElement(Image, { src: src })
     );
   }

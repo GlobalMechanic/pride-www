@@ -67,7 +67,9 @@ class CycleImage extends React.Component {
 
     const { cycle } = this.props
 
-    const orient = this.state.profile ? 'profile' : 'landscape'
+    const orient = this.state.profile
+      ? 'profile'
+      : 'landscape'
 
     // const src = await import(`../../webpack/public/assets/${cycle}_${this.index}.jpg`)
     const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
@@ -78,7 +80,6 @@ class CycleImage extends React.Component {
   // Handlers
 
   resize = () => {
-
     const profile = innerHeight > innerWidth
 
     if (profile !== this.state.profile)
@@ -93,9 +94,7 @@ class CycleImage extends React.Component {
       addEventListener(window, 'deviceorientation', this.resize)
 
     this.interval = setInterval(this.loop, CYCLE_SPEED)
-
     this.resize()
-
   }
 
   componentWillUnmount () {
@@ -108,8 +107,9 @@ class CycleImage extends React.Component {
   render () {
 
     const { src } = this.state
+    const { nonSticky } = this.props
 
-    return <Sticky>
+    return <Sticky nonSticky={nonSticky}>
       <Image src={src} />
     </Sticky>
   }

@@ -89,10 +89,11 @@ class Video extends _react2.default.Component {
   render() {
 
     const { src, profile } = this.state;
+    const { nonSticky } = this.props;
 
     return src === null ? null : _react2.default.createElement(
       _sticky2.default,
-      null,
+      { nonSticky: nonSticky },
       _react2.default.createElement(VideoPlayer, { src: src, isProfile: profile })
     );
   }
