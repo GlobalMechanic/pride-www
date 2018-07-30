@@ -46,7 +46,7 @@ const BLACK = 'rgba(0, 0, 0, 0.675)';
 
 const Bio = (0, _styledComponents2.default)(_reactMarkdown2.default).withConfig({
   displayName: 'section__Bio'
-})(['flex-shrink:0;box-sizing:border-box;display:flex;overflow:hidden;margin-top:calc(80vh - ', 'em);margin-bottom:0;font-size:1.5em;padding:', 'em 10vw ', 'em 10vw;color:', ';background:linear-gradient( to bottom,transparent,', ' ', 'em,', ' calc(100% - ', 'em),transparent )'], PAD, PAD, PAD / 4, props => props.color || 'inherit', BLACK, PAD, BLACK, PAD / 4);
+})(['flex-shrink:0;box-sizing:border-box;display:flex;overflow:hidden;margin-top:calc(80vh - ', 'em);margin-bottom:0;font-size:1.5em;padding:', 'em 10vw ', 'em 10vw;color:', ';background:linear-gradient( to bottom,transparent,', ' ', 'em )'], PAD, PAD, PAD / 10, props => props.color || 'inherit', BLACK, PAD);
 
 /******************************************************************************/
 // Main Component

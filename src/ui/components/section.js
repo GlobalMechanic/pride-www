@@ -31,15 +31,13 @@ overflow: hidden;
 margin-top: calc(80vh - ${PAD}em);
 margin-bottom: 0;
 font-size: 1.5em;
-padding: ${PAD}em 10vw ${PAD / 4}em 10vw;
+padding: ${PAD}em 10vw ${PAD / 10}em 10vw;
 color: ${props => props.color || 'inherit'};
 
 background: linear-gradient(
   to bottom,
   transparent,
-  ${BLACK} ${PAD}em,
-  ${BLACK} calc(100% - ${PAD / 4}em),
-  transparent
+  ${BLACK} ${PAD}em
 )
 `
 
