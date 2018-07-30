@@ -14,6 +14,7 @@ import Sticky from './sticky'
 
 const VideoPlayer = styled.video.attrs({
   loop: true,
+  muted: true,
   style: props => {
 
     const key = props.isProfile ? 'width' : 'height'

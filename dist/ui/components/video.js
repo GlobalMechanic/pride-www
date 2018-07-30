@@ -32,6 +32,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const VideoPlayer = _styledComponents2.default.video.attrs({
   loop: true,
+  muted: true,
   style: props => {
 
     const key = props.isProfile ? 'width' : 'height';
