@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@benzed/app": "^0.5.5",
-    "@benzed/react": "^0.2.0",
+    "@benzed/react": "^0.3.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-markdown": "^3.4.1",

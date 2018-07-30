@@ -31,7 +31,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /******************************************************************************/
 
 const VideoPlayer = _styledComponents2.default.video.attrs({
-  autoPlay: true,
   loop: true,
   style: props => {
 
@@ -55,22 +54,24 @@ class Video extends _react2.default.Component {
 
     return _temp = _this = super(...args), this.state = {
       src: null,
-      profile: null
-
-      // Handlers
-
-    }, this.resize = _asyncToGenerator(function* () {
+      profile: null,
+      playable: false
+    }, this.setPlayable = () => this.setState({ playable: true }), this.resize = _asyncToGenerator(function* () {
 
       const { video } = _this.props;
       const profile = innerHeight > innerWidth;
 
       const { default: src } = yield import(`../../webpack/public/assets/${video}-${profile ? 'profile' : 'landscape'}.mp4`);
 
-      if (src !== _this.state.src) _this.setState({ src, profile });
-    }), _temp;
+      if (src !== _this.state.src) _this.setState({ src, profile, playable: false });
+    }), this.getRef = video => {
+      this.video = video;
+    }, this.play = () => this.video && this.state.playable && this.video.play(), this.pause = () => this.video && this.video.pause(), _temp;
   }
 
   // State
+
+  // Handlers
 
   // LifeCycle
 
@@ -79,11 +80,19 @@ class Video extends _react2.default.Component {
     if ((0, _react3.isMobile)()) (0, _addEventListener.addEventListener)(window, 'deviceorientation', this.resize);
 
     this.resize();
+    (0, _addEventListener.addEventListener)(this.video, 'canplay', this.setPlayable);
   }
 
   componentWillUnmount() {
     (0, _addEventListener.removeEventListener)(window, 'resize', this.resize);
     if ((0, _react3.isMobile)()) (0, _addEventListener.removeEventListener)(window, 'deviceorientation', this.resize);
+    (0, _addEventListener.removeEventListener)(this.video, 'canplay', this.setPlayable);
+  }
+
+  componentDidUpdate() {
+
+    const { visibility } = this.props;
+    if (!visibility || visibility === 'hidden') this.pause();else this.play();
   }
 
   render() {
@@ -91,10 +100,10 @@ class Video extends _react2.default.Component {
     const { src, profile } = this.state;
     const { nonSticky } = this.props;
 
-    return src === null ? null : _react2.default.createElement(
+    return _react2.default.createElement(
       _sticky2.default,
       { nonSticky: nonSticky },
-      _react2.default.createElement(VideoPlayer, { src: src, isProfile: profile })
+      _react2.default.createElement(VideoPlayer, { src: src, isProfile: profile, innerRef: this.getRef })
     );
   }
 

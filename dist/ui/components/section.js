@@ -46,20 +46,35 @@ const BLACK = 'rgba(0, 0, 0, 0.675)';
 
 const Bio = (0, _styledComponents2.default)(_reactMarkdown2.default).withConfig({
   displayName: 'section__Bio'
-})(['flex-shrink:0;box-sizing:border-box;display:flex;overflow:hidden;margin-top:calc(80vh - ', 'em);margin-bottom:calc(80vh - ', 'em);font-size:1.5em;padding:', 'em 10vw ', 'em 10vw;background:linear-gradient( to bottom,transparent,', ' ', 'em,', ' calc(100% - ', 'em),transparent )'], PAD, PAD, PAD, PAD, BLACK, PAD, BLACK, PAD);
+})(['flex-shrink:0;box-sizing:border-box;display:flex;overflow:hidden;margin-top:calc(80vh - ', 'em);margin-bottom:0;font-size:1.5em;padding:', 'em 10vw ', 'em 10vw;color:', ';background:linear-gradient( to bottom,transparent,', ' ', 'em,', ' calc(100% - ', 'em),transparent )'], PAD, PAD, PAD / 4, props => props.color || 'inherit', BLACK, PAD, BLACK, PAD / 4);
 
 /******************************************************************************/
 // Main Component
 /******************************************************************************/
 
-const Section = (0, _styledComponents2.default)(({ video, bio, nonSticky, className }) => _react2.default.createElement(
-  'section',
-  { className: className },
-  MOBILE ? _react2.default.createElement(_cycleImage2.default, { cycle: video, nonSticky: nonSticky }) : _react2.default.createElement(_video2.default, { video: video, nonSticky: nonSticky }),
-  bio ? _react2.default.createElement(Bio, { source: bio }) : null
+const Section = (0, _styledComponents2.default)(({ video, color, bio, nonSticky, className }) => _react2.default.createElement(
+  _react3.ScrollVisible,
+  { className: className, id: video },
+  _react2.default.createElement(
+    _react3.Visible.Context.Consumer,
+    null,
+    visibility => [MOBILE ? _react2.default.createElement(_cycleImage2.default, { key: 'cycle',
+      cycle: video,
+      nonSticky: nonSticky,
+      visibility: visibility
+    }) : _react2.default.createElement(_video2.default, { key: 'video',
+      video: video,
+      nonSticky: nonSticky,
+      visibility: visibility
+    }), bio ? _react2.default.createElement(Bio, { key: 'bio',
+      source: bio,
+      color: color,
+      visibility: visibility
+    }) : null]
+  )
 )).withConfig({
   displayName: 'section__Section'
-})(['flex:1 0 100vh;display:flex;:last-child{', '{margin-bottom:0;}}'], Bio);
+})(['flex:1 0 100vh;display:flex;']);
 
 /******************************************************************************/
 // Exports

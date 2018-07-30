@@ -10,6 +10,6 @@ Object.defineProperty(exports, "__esModule", {
 
 const TEST_MOBILE = exports.TEST_MOBILE = process.env.NODE_ENV === 'development' && true;
 
-const CYCLE_SPEED = exports.CYCLE_SPEED = 500; // ms
+const CYCLE_SPEED = exports.CYCLE_SPEED = 250; // ms
 
 const CYCLE_IMAGE_COUNT = exports.CYCLE_IMAGE_COUNT = 3;

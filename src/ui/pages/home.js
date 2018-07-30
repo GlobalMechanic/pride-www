@@ -17,10 +17,11 @@ const toDashCase = str =>
 
 const Home = ({ children, people, ...props }) =>
   <Page>
-    <Section video='intro' nonSticky={people.length === 0}/>
-    {people.map(person => <Section
+    <Section video='intro' nonSticky={!people || people.length === 0}/>
+    {people && people.map(person => <Section
       key={person.name}
       bio={person.bio}
+      color={person.color}
       video={toDashCase(person.name)}
     />)}
   </Page>

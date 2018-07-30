@@ -13,7 +13,6 @@ import Sticky from './sticky'
 /******************************************************************************/
 
 const VideoPlayer = styled.video.attrs({
-  autoPlay: true,
   loop: true,
   style: props => {
 
@@ -46,8 +45,12 @@ class Video extends React.Component {
 
   state = {
     src: null,
-    profile: null
+    profile: null,
+    playable: false
   }
+
+  setPlayable = () =>
+    this.setState({ playable: true })
 
   // Handlers
 
@@ -61,8 +64,18 @@ class Video extends React.Component {
     )
 
     if (src !== this.state.src)
-      this.setState({ src, profile })
+      this.setState({ src, profile, playable: false })
   }
+
+  getRef = video => {
+    this.video = video
+  }
+
+  play = () =>
+    this.video && this.state.playable && this.video.play()
+
+  pause = () =>
+    this.video && this.video.pause()
 
   // LifeCycle
 
@@ -72,12 +85,24 @@ class Video extends React.Component {
       addEventListener(window, 'deviceorientation', this.resize)
 
     this.resize()
+    addEventListener(this.video, 'canplay', this.setPlayable)
   }
 
   componentWillUnmount () {
     removeEventListener(window, 'resize', this.resize)
     if (isMobile())
       removeEventListener(window, 'deviceorientation', this.resize)
+    removeEventListener(this.video, 'canplay', this.setPlayable)
+  }
+
+  componentDidUpdate () {
+
+    const { visibility } = this.props
+    if (!visibility || visibility === 'hidden')
+      this.pause()
+    else
+      this.play()
+
   }
 
   render () {
@@ -85,11 +110,9 @@ class Video extends React.Component {
     const { src, profile } = this.state
     const { nonSticky } = this.props
 
-    return src === null
-      ? null
-      : <Sticky nonSticky={nonSticky}>
-        <VideoPlayer src={src} isProfile={profile}/>
-      </Sticky>
+    return <Sticky nonSticky={nonSticky}>
+      <VideoPlayer src={src} isProfile={profile} innerRef={this.getRef}/>
+    </Sticky>
   }
 
 }

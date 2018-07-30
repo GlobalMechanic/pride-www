@@ -37,10 +37,11 @@ const Home = (_ref) => {
   return _react2.default.createElement(
     _page2.default,
     null,
-    _react2.default.createElement(_components.Section, { video: 'intro', nonSticky: people.length === 0 }),
-    people.map(person => _react2.default.createElement(_components.Section, {
+    _react2.default.createElement(_components.Section, { video: 'intro', nonSticky: !people || people.length === 0 }),
+    people && people.map(person => _react2.default.createElement(_components.Section, {
       key: person.name,
       bio: person.bio,
+      color: person.color,
       video: toDashCase(person.name)
     }))
   );

@@ -11,6 +11,23 @@ import Sticky from './sticky'
 import { CYCLE_SPEED, CYCLE_IMAGE_COUNT } from '../constants'
 
 /******************************************************************************/
+// Data
+/******************************************************************************/
+
+const IMAGE_KEYS = Array(CYCLE_IMAGE_COUNT * 2)
+  .fill(null)
+  .map((_, i) => {
+
+    const profile = i >= CYCLE_IMAGE_COUNT
+
+    const index = profile
+      ? i - CYCLE_IMAGE_COUNT
+      : i
+
+    return { index, profile }
+  })
+
+/******************************************************************************/
 // Styled Components
 /******************************************************************************/
 
@@ -23,12 +40,16 @@ const Image = styled(({ src, className }) => {
   return <div className={className} style={style} />
 })`
 
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   width: 100%;
   height: 100%;
+
+  position: absolute;
+  top: 0;
+  z-index: ${props => props.featured ? 1 : 0};
 
   display: flex;
   font-size: 3em;
@@ -47,38 +68,22 @@ class CycleImage extends React.Component {
   })
 
   interval = null
-  index = 0
+  urls = []
 
   // State
 
   state = {
     src: null,
-    profile: false
+    profile: false,
+    index: 0
   }
 
-  loop = async () => {
-    this.index++
-    if (this.index >= CYCLE_IMAGE_COUNT)
-      this.index = 0
+  loop = () => {
+    let index = this.state.index + 1
+    if (index >= CYCLE_IMAGE_COUNT)
+      index = 0
 
-    const { cycle } = this.props
-
-    const orient = this.state.profile
-      ? 'profile'
-      : 'landscape'
-
-    try {
-
-      const { default: src } = await import(
-        `../../webpack/public/assets/${cycle}-${orient}_${this.index}.jpg`
-      )
-      // const src = `../../webpack/public/assets/${cycle}_${orient}_${this.index}.jpg`
-
-      this.setState({ src })
-    } catch (err) {
-      // console.warn(err)
-    }
-
+    this.setState({ index })
   }
 
   // Handlers
@@ -90,6 +95,38 @@ class CycleImage extends React.Component {
       this.setState({ profile })
   }
 
+  play = () => {
+    if (this.interval === null)
+      this.interval = setInterval(this.loop, CYCLE_SPEED)
+  }
+
+  pause = () => {
+    if (this.interval !== null) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+  }
+
+  // Init
+
+  getUrls () {
+    const { cycle } = this.props
+    this.urls = IMAGE_KEYS.map(({ index, profile }) => {
+      let url = null
+      try {
+        const orient = profile ? 'profile' : 'landscape'
+        url = require(
+          `../../webpack/public/assets/` +
+          `${cycle}-${orient}` +
+          `_${index}.jpg`
+        )
+      } catch (err) {
+        // console.log(err.message)
+      }
+      return url
+    })
+  }
+
   // LifeCycle
 
   componentDidMount () {
@@ -97,24 +134,40 @@ class CycleImage extends React.Component {
     if (isMobile())
       addEventListener(window, 'deviceorientation', this.resize)
 
-    this.interval = setInterval(this.loop, CYCLE_SPEED)
+    this.getUrls()
     this.resize()
+    this.play()
   }
 
   componentWillUnmount () {
     removeEventListener(window, 'resize', this.resize)
     if (isMobile())
       removeEventListener(window, 'deviceorientation', this.resize)
-    clearInterval(this.interval)
+    this.pause()
+  }
+
+  componentDidUpdate () {
+    const { visibility } = this.props
+    if (!visibility || visibility === 'hidden')
+      this.pause()
+    else
+      this.play()
   }
 
   render () {
 
-    const { src } = this.state
+    const { state } = this
     const { nonSticky } = this.props
 
     return <Sticky nonSticky={nonSticky}>
-      { src && <Image src={src} />}
+      { IMAGE_KEYS.map(({ index, profile }, i) => profile === state.profile
+        ? <Image
+          key={`${index}-${profile}`}
+          src={this.urls[i]}
+          featured={state.index === index}
+        />
+        : null
+      )}
     </Sticky>
   }
 
