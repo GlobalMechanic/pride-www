@@ -1,5 +1,5 @@
 import 'normalize.css'
-import './public/pride-www.css'
+import './pride-www.css'
 
 /******************************************************************************/
 // Dynamic Dependencies

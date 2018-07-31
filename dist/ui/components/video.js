@@ -55,16 +55,16 @@ class Video extends _react2.default.Component {
 
     return _temp = _this = super(...args), this.state = {
       src: null,
-      profile: null,
+      portrait: null,
       playable: false
     }, this.setPlayable = () => this.setState({ playable: true }), this.resize = _asyncToGenerator(function* () {
 
       const { video } = _this.props;
-      const profile = innerHeight > innerWidth;
+      const portrait = innerHeight > innerWidth;
 
-      const { default: src } = yield import(`../../webpack/public/assets/${video}-${profile ? 'profile' : 'landscape'}.mp4`);
+      const { default: src } = yield import(`../../webpack/videos/${video}-${portrait ? 'portrait' : 'landscape'}.mp4`);
 
-      if (src !== _this.state.src) _this.setState({ src, profile, playable: false });
+      if (src !== _this.state.src) _this.setState({ src, portrait, playable: false });
     }), this.getRef = video => {
       this.video = video;
     }, this.play = () => this.video && this.state.playable && this.video.play(), this.pause = () => this.video && this.video.pause(), _temp;
@@ -98,13 +98,13 @@ class Video extends _react2.default.Component {
 
   render() {
 
-    const { src, profile } = this.state;
+    const { src, portrait } = this.state;
     const { nonSticky } = this.props;
 
     return _react2.default.createElement(
       _sticky2.default,
       { nonSticky: nonSticky },
-      _react2.default.createElement(VideoPlayer, { src: src, isProfile: profile, innerRef: this.getRef })
+      _react2.default.createElement(VideoPlayer, { src: src, isProfile: portrait, innerRef: this.getRef })
     );
   }
 

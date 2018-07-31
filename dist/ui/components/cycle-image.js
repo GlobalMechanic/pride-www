@@ -32,11 +32,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const IMAGE_KEYS = Array(_constants.CYCLE_IMAGE_COUNT * 2).fill(null).map((_, i) => {
 
-  const profile = i >= _constants.CYCLE_IMAGE_COUNT;
+  const portrait = i >= _constants.CYCLE_IMAGE_COUNT;
 
-  const index = profile ? i - _constants.CYCLE_IMAGE_COUNT : i;
+  const index = portrait ? i - _constants.CYCLE_IMAGE_COUNT : i;
 
-  return { index, profile };
+  return { index, portrait };
 });
 
 /******************************************************************************/
@@ -64,7 +64,7 @@ class CycleImage extends _react2.default.Component {
 
     return _temp = super(...args), this.interval = null, this.urls = [], this.state = {
       src: null,
-      profile: false,
+      portrait: false,
       index: 0
     }, this.loop = () => {
       let index = this.state.index + 1;
@@ -72,9 +72,9 @@ class CycleImage extends _react2.default.Component {
 
       this.setState({ index });
     }, this.resize = () => {
-      const profile = innerHeight > innerWidth;
+      const portrait = innerHeight > innerWidth;
 
-      if (profile !== this.state.profile) this.setState({ profile });
+      if (portrait !== this.state.portrait) this.setState({ portrait });
     }, this.play = () => {
       if (this.interval === null) this.interval = setInterval(this.loop, _constants.CYCLE_SPEED);
     }, this.pause = () => {
@@ -93,13 +93,13 @@ class CycleImage extends _react2.default.Component {
 
   getUrls() {
     const { cycle } = this.props;
-    this.urls = IMAGE_KEYS.map(({ index, profile }) => {
+    this.urls = IMAGE_KEYS.map(({ index, portrait }) => {
       let url = null;
       try {
-        const orient = profile ? 'profile' : 'landscape';
-        url = require(`../../webpack/public/assets/` + `${cycle}-${orient}` + `_${index}.jpg`);
+        const orient = portrait ? 'portrait' : 'landscape';
+        url = require(`../../webpack/images/` + `${cycle}-${orient}` + `_${index}.jpg`);
       } catch (err) {
-        // console.log(err.message)
+        console.log(err.message);
       }
       return url;
     });
@@ -135,8 +135,8 @@ class CycleImage extends _react2.default.Component {
     return _react2.default.createElement(
       _sticky2.default,
       { nonSticky: nonSticky },
-      IMAGE_KEYS.map(({ index, profile }, i) => profile === state.profile ? _react2.default.createElement(Image, {
-        key: `${index}-${profile}`,
+      IMAGE_KEYS.map(({ index, portrait }, i) => portrait === state.portrait ? _react2.default.createElement(Image, {
+        key: `${index}-${portrait}`,
         src: this.urls[i],
         featured: state.index === index
       }) : null)

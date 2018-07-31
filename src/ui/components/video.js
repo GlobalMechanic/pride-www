@@ -46,7 +46,7 @@ class Video extends React.Component {
 
   state = {
     src: null,
-    profile: null,
+    portrait: null,
     playable: false
   }
 
@@ -58,14 +58,14 @@ class Video extends React.Component {
   resize = async () => {
 
     const { video } = this.props
-    const profile = innerHeight > innerWidth
+    const portrait = innerHeight > innerWidth
 
     const { default: src } = await import(
-      `../../webpack/public/assets/${video}-${profile ? 'profile' : 'landscape'}.mp4`
+      `../../webpack/videos/${video}-${portrait ? 'portrait' : 'landscape'}.mp4`
     )
 
     if (src !== this.state.src)
-      this.setState({ src, profile, playable: false })
+      this.setState({ src, portrait, playable: false })
   }
 
   getRef = video => {
@@ -108,11 +108,11 @@ class Video extends React.Component {
 
   render () {
 
-    const { src, profile } = this.state
+    const { src, portrait } = this.state
     const { nonSticky } = this.props
 
     return <Sticky nonSticky={nonSticky}>
-      <VideoPlayer src={src} isProfile={profile} innerRef={this.getRef}/>
+      <VideoPlayer src={src} isProfile={portrait} innerRef={this.getRef}/>
     </Sticky>
   }
 
